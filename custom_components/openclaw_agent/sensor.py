@@ -90,15 +90,15 @@ class OpenClawUptimeSensor(OpenClawBaseSensor):
 
     _sensor_type = "uptime"
     _attr_icon = "mdi:clock-outline"
-    _attr_state_class = SensorStateClass.MEASUREMENT
     _attr_native_unit_of_measurement = "minutes"
 
     async def async_update(self) -> None:
         data = await self._api.get_status()
-        if data and "uptime" in data:
-            self._attr_native_value = data["uptime"]
+        if data and data.get("status") == "live":
+            # /health doesn't return uptime; set to 0 as placeholder
+            self._attr_native_value = 0
         else:
-            self._attr_native_value = STATE_UNAVAILABLE
+            self._attr_native_value = None
 
 
 class OpenClawLastMessageSensor(OpenClawBaseSensor):
