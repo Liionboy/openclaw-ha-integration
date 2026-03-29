@@ -87,7 +87,24 @@ async def async_setup_services(
                 EVENT_MESSAGE_RECEIVED,
                 {"user_message": message, "response": reply, "session_id": session_id},
             )
-            call.data[ATTR_RESPONSE] = reply
+        elif response and "error" in response:
+            reply = f"Error: {response['error']}"
+            hass.bus.async_fire(
+                EVENT_MESSAGE_RECEIVED,
+                {"user_message": message, "response": reply, "session_id": session_id},
+            )
+        else:
+            reply = "No response from OpenClaw gateway"
+            hass.bus.async_fire(
+                EVENT_MESSAGE_RECEIVED,
+                {"user_message": message, "response": reply, "session_id": session_id},
+            )
+
+        # Update last message sensor
+        hass.bus.async_fire(
+            f"{DOMAIN}_message_received",
+            {"user_message": message, "response": reply, "session_id": session_id},
+        )
 
     hass.services.async_register(
         DOMAIN, SERVICE_SEND_MESSAGE, _handle_send_message, SEND_MESSAGE_SCHEMA,

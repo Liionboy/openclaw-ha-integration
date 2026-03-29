@@ -197,7 +197,7 @@ class OpenClawAPI:
         session_id: str = "default",
         model: str | None = None,
         agent_id: str = "main",
-    ) -> dict[str, Any] | None:
+    ) -> dict[str, Any]:
         """Send a message to the agent via WebSocket."""
         payload = {
             "type": "agent.chat",
@@ -210,11 +210,15 @@ class OpenClawAPI:
         if model:
             payload["data"]["model"] = model
 
-        result = await self._ws_send_and_wait(payload, timeout=120)
+        try:
+            result = await self._ws_send_and_wait(payload, timeout=120)
+        except Exception as e:
+            _LOGGER.error("WebSocket send_message failed: %s", e)
+            return {"error": str(e)}
 
         if "error" in result:
             _LOGGER.error("Agent chat error: %s", result["error"])
-            return None
+            return result
 
         # Normalize response format
         if "choices" in result:
@@ -225,4 +229,5 @@ class OpenClawAPI:
             return {"choices": [{"message": {"content": result["data"]["message"]}}]}
 
         # Return raw if format unknown
+        _LOGGER.warning("Unknown WS response format: %s", str(result)[:300])
         return result
