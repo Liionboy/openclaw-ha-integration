@@ -69,21 +69,20 @@ class OpenClawStatusSensor(OpenClawBaseSensor):
 
 
 class OpenClawModelSensor(OpenClawBaseSensor):
-    """Current model info."""
+    """Gateway connection details."""
 
     _sensor_type = "model"
-    _attr_icon = "mdi:brain"
+    _attr_icon = "mdi:robot"
 
     async def async_update(self) -> None:
         data = await self._api.get_status()
         if data:
-            self._attr_native_value = data.get("model", "unknown")
+            self._attr_native_value = data.get("status", "live")
             self._attr_extra_state_attributes = {
-                "provider": data.get("provider", "unknown"),
-                "fallbacks": data.get("fallbacks", []),
+                "gateway": f"{self._api._host}:{self._api._port}",
             }
         else:
-            self._attr_native_value = STATE_UNAVAILABLE
+            self._attr_native_value = "offline"
 
 
 class OpenClawUptimeSensor(OpenClawBaseSensor):
@@ -116,7 +115,7 @@ class OpenClawLastMessageSensor(OpenClawBaseSensor):
 
     @property
     def native_value(self) -> str | None:
-        return self._last_response[:100] if self._last_response else None
+        return self._last_response[:100] if self._last_response else "No messages yet"
 
     @property
     def extra_state_attributes(self) -> dict:

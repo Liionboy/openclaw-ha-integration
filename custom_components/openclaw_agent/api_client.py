@@ -81,10 +81,10 @@ class OpenClawAPI:
         return await self._request("GET", "/health")
 
     async def get_status(self) -> dict[str, Any] | None:
-        """Get gateway status via models endpoint."""
-        data = await self._request("GET", "/v1/models")
-        if data:
-            return {"model": "unknown", "provider": "unknown", "raw": data}
+        """Get gateway status from health endpoint."""
+        data = await self._request("GET", "/health")
+        if data and data.get("ok"):
+            return {"status": data.get("status", "live")}
         return None
 
     # ── Chat / Completions (OpenAI-compatible) ───────────────────
