@@ -1,0 +1,109 @@
+send_message:
+  name: Send Message
+  description: Send a message to the OpenClaw agent and get a response.
+  fields:
+    message:
+      name: Message
+      description: The message to send to OpenClaw.
+      required: true
+      selector:
+        text:
+    session_id:
+      name: Session ID
+      description: Conversation session identifier.
+      default: "default"
+      selector:
+        text:
+    model:
+      name: Model
+      description: Override the model for this message.
+      selector:
+        text:
+
+clear_history:
+  name: Clear History
+  description: Clear conversation history for a session.
+  fields:
+    session_id:
+      name: Session ID
+      description: Session to clear.
+      default: "default"
+      selector:
+        text:
+
+restart_homeassistant:
+  name: Restart Home Assistant
+  description: Restart Home Assistant. Use with caution!
+
+edit_configuration:
+  name: Edit Configuration
+  description: Edit a YAML configuration file (auto-backup before write).
+  fields:
+    filename:
+      name: Filename
+      description: YAML file to edit (relative to config dir).
+      default: "configuration.yaml"
+      selector:
+        text:
+    content:
+      name: Content
+      description: New content for the file or section.
+      required: true
+      selector:
+        text:
+          multiline: true
+    section:
+      name: Section
+      description: If set, patch only this top-level YAML section instead of replacing the whole file.
+      selector:
+        text:
+    backup:
+      name: Create Backup
+      description: Create a backup before writing.
+      default: true
+      selector:
+        boolean:
+
+reload_integration:
+  name: Reload Integration
+  description: Reload a specific Home Assistant integration.
+  fields:
+    integration:
+      name: Integration Domain
+      description: The domain of the integration to reload (e.g. mqtt, template).
+      required: true
+      selector:
+        text:
+
+run_command:
+  name: Run Command
+  description: Execute a shell command on the HA host.
+  fields:
+    command:
+      name: Command
+      description: Shell command to execute.
+      required: true
+      selector:
+        text:
+    timeout:
+      name: Timeout
+      description: Maximum time in seconds.
+      default: 30
+      selector:
+        number:
+          min: 1
+          max: 300
+
+backup_configuration:
+  name: Backup Configuration
+  description: Create a backup of a config file or the entire config directory.
+  fields:
+    filename:
+      name: Filename
+      description: Specific file to backup. Leave empty for full config backup.
+      selector:
+        text:
+
+check_configuration:
+  name: Check Configuration
+  description: Validate the Home Assistant configuration.
