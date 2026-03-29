@@ -1,35 +1,24 @@
-translations:
-  en:
-    config:
-      step:
-        user:
-          title: "Connect to OpenClaw"
-          description: "Enter your OpenClaw gateway connection details."
-          data:
-            host: "Gateway Host (IP or hostname)"
-            port: "Gateway Port"
-            token: "Gateway Auth Token"
-            use_ssl: "Use SSL (HTTPS)"
-            verify_ssl: "Verify SSL Certificate"
-            agent_name: "Agent Name (for display)"
-      error:
-        cannot_connect: "Cannot connect to OpenClaw gateway."
-      abort:
-        already_configured: "This OpenClaw gateway is already configured."
-  ro:
-    config:
-      step:
-        user:
-          title: "Conectare la OpenClaw"
-          description: "Introdu detaliile conexiunii la gateway-ul OpenClaw."
-          data:
-            host: "Host Gateway (IP sau hostname)"
-            port: "Port Gateway"
-            token: "Token Auth Gateway"
-            use_ssl: "Folosește SSL (HTTPS)"
-            verify_ssl: "Verifică certificatul SSL"
-            agent_name: "Nume agent (pentru afișare)"
-      error:
-        cannot_connect: "Nu mă pot conecta la gateway-ul OpenClaw."
-      abort:
-        already_configured: "Acest gateway OpenClaw este deja configurat."
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to OpenClaw",
+        "description": "Enter your OpenClaw gateway connection details.",
+        "data": {
+          "host": "Gateway Host (IP or hostname)",
+          "port": "Gateway Port",
+          "token": "Gateway Auth Token",
+          "use_ssl": "Use SSL (HTTPS)",
+          "verify_ssl": "Verify SSL Certificate",
+          "agent_name": "Agent Name (for display)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to OpenClaw gateway."
+    },
+    "abort": {
+      "already_configured": "This OpenClaw gateway is already configured."
+    }
+  }
+}
