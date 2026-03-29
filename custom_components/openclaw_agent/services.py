@@ -91,7 +91,7 @@ async def async_setup_services(
 
     hass.services.async_register(
         DOMAIN, SERVICE_SEND_MESSAGE, _handle_send_message, SEND_MESSAGE_SCHEMA,
-        SupportsResponse.OPTIONAL,
+        supports_response=SupportsResponse.OPTIONAL,
     )
 
     # ── openclaw_agent.clear_history ─────────────────────────────
@@ -137,7 +137,7 @@ async def async_setup_services(
 
     hass.services.async_register(
         DOMAIN, SERVICE_EDIT_CONFIG, _handle_edit_config, EDIT_CONFIG_SCHEMA,
-        SupportsResponse.ALWAYS,
+        supports_response=SupportsResponse.OPTIONAL,
     )
 
     # ── openclaw_agent.reload_integration ────────────────────────
@@ -189,7 +189,7 @@ async def async_setup_services(
 
     hass.services.async_register(
         DOMAIN, SERVICE_RUN_COMMAND, _handle_run_command, RUN_COMMAND_SCHEMA,
-        SupportsResponse.ALWAYS,
+        supports_response=SupportsResponse.OPTIONAL,
     )
 
     # ── openclaw_agent.backup_configuration ──────────────────────
@@ -208,7 +208,7 @@ async def async_setup_services(
 
     hass.services.async_register(
         DOMAIN, SERVICE_BACKUP_CONFIG, _handle_backup_config, BACKUP_SCHEMA,
-        SupportsResponse.ALWAYS,
+        supports_response=SupportsResponse.OPTIONAL,
     )
 
     # ── openclaw_agent.check_configuration ───────────────────────
@@ -226,7 +226,7 @@ async def async_setup_services(
 
     hass.services.async_register(
         DOMAIN, SERVICE_CHECK_CONFIG, _handle_check_config, CHECK_CONFIG_SCHEMA,
-        SupportsResponse.ALWAYS,
+        supports_response=SupportsResponse.OPTIONAL,
     )
 
     _LOGGER.info("OpenClaw Agent services registered")
