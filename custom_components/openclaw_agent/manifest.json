@@ -1,7 +1,7 @@
 {
   "domain": "openclaw_agent",
   "name": "OpenClaw Agent",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "codeowners": ["@Liionboy"],
   "config_flow": true,
   "dependencies": ["http", "websocket_api"],
